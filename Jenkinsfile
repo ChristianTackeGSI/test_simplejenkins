@@ -8,7 +8,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '12'))
   }
   triggers {
-    cron("H/10 * * * *")
+    cron("H * * * *")
   }
   agent none
   stages {
