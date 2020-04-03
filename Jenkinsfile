@@ -4,11 +4,11 @@
 
 pipeline {
   options {
-    quietPeriod(300)
+    quietPeriod(1800)
     buildDiscarder(logRotator(numToKeepStr: '12'))
   }
   triggers {
-    cron("H * * * *")
+    cron("H/10 * * * *")
   }
   agent none
   stages {
