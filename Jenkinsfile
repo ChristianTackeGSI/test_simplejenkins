@@ -4,8 +4,11 @@
 
 pipeline {
   options {
-    pipelineTriggers([[$class: 'PeriodicFolderTrigger', interval: '2h']])
+    quietPeriod(300)
     buildDiscarder(logRotator(numToKeepStr: '12'))
+  }
+  triggers {
+    PeriodicFolderTrigger('1h')
   }
   agent none
   stages {
