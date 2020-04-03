@@ -9,7 +9,7 @@ if (BRANCH_NAME == "master") {
 
 pipeline {
   options {
-    quietPeriod(1800)
+    quietPeriod(0)
     buildDiscarder(logRotator(numToKeepStr: '12'))
   }
   triggers {
@@ -21,6 +21,7 @@ pipeline {
       steps {
         echo "Start"
         echo "BRANCH_NAME: ${BRANCH_NAME}"
+        echo "CHANGE_ID: ${CHANGE_ID}"
         echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
         echo "env.CHANGE_ID: ${env.CHANGE_ID}"
         echo "cron: ${cron_string}"
