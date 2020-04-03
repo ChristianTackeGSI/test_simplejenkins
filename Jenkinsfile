@@ -8,7 +8,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '12'))
   }
   triggers {
-    PeriodicFolderTrigger('1h')
+    cron("H * * * *")
   }
   agent none
   stages {
