@@ -10,7 +10,9 @@ if (BRANCH_NAME == "master") {
 pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '12'))
-    quietPeriod(null)
+    if (false) {
+      quietPeriod(null)
+    }
   }
   triggers {
     cron("H H/3 * * *")
