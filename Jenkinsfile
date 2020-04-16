@@ -10,9 +10,6 @@ if (BRANCH_NAME == "master") {
 pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '12'))
-    if (false) {
-      quietPeriod(null)
-    }
   }
   triggers {
     cron("H H/3 * * *")
@@ -25,8 +22,17 @@ pipeline {
         echo "BRANCH_NAME: ${BRANCH_NAME}"
         echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
         echo "env.CHANGE_ID: ${env.CHANGE_ID}"
+        echo "getBuildCauses: ${currentBuild.getBuildCauses()}"
         echo "cron: ${cron_string}"
       }
+    }
+    stage('timer stage') {
+        when {
+            triggeredBy 'TimerTrigger'
+        }
+        steps {
+            echo 'By timer'
+        }
     }
   }
 }
