@@ -12,7 +12,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '12'))
   }
   triggers {
-    cron("H H/3 * * *")
+    cron("H H * * *")
   }
   agent none
   stages {
@@ -24,6 +24,9 @@ pipeline {
         echo "env.CHANGE_ID: ${env.CHANGE_ID}"
         echo "getBuildCauses: ${currentBuild.getBuildCauses()}"
         echo "cron: ${cron_string}"
+        script {
+            println env.CHANGE_ID
+        }
       }
     }
     stage('timer stage') {
