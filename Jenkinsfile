@@ -24,10 +24,13 @@ def show_build_change_info(build) {
 // currentBuild.rawBuild.getParent().setQuietPeriod(300)
 
 String cron_string = ""
+Integer quietperiod = 0;
 if (BRANCH_NAME == "master") {
-  cron_string = "H H 6 * *"
+  cron_string = "H H 6 * *";
 }
-Integer quietperiod = null;
+if (env.CHANGE_ID == null) {
+  quietperiod = 35;
+}
 
 pipeline {
   options {
@@ -47,6 +50,7 @@ pipeline {
         echo "env.CHANGE_ID: ${env.CHANGE_ID}"
         echo "getBuildCauses: ${currentBuild.getBuildCauses()}"
         echo "cron: ${cron_string}"
+        echo "quietperiod: ${quietperiod}"
         script {
             println env.CHANGE_ID
             println currentBuild.displayName
