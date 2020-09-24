@@ -27,10 +27,12 @@ String cron_string = ""
 if (BRANCH_NAME == "master") {
   cron_string = "H H 6 * *"
 }
+Integer quietperiod = null;
 
 pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '12'))
+    quietPeriod(quietperiod)
   }
   triggers {
     cron("H H * * *")
