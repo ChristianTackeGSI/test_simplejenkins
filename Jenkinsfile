@@ -48,6 +48,7 @@ pipeline {
         echo "BRANCH_NAME: ${BRANCH_NAME}"
         echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
         echo "env.CHANGE_ID: ${env.CHANGE_ID}"
+        echo "env.CHANGE_TARGET: ${env.CHANGE_TARGET}"
         echo "getBuildCauses: ${currentBuild.getBuildCauses()}"
         echo "cron: ${cron_string}"
         echo "quietperiod: ${quietperiod}"
