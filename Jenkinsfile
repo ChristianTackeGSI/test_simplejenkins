@@ -2,22 +2,28 @@
 
 def show_build_change_info(build) {
     def changeLogSets = currentBuild.changeSets
+    def resultlist = []
     if (changeLogSets.size() == 0) {
-        println "  Empty changeSets?!"
+        resultlist.add("  Empty changeSets?!")
     }
     for (int i = 0; i < changeLogSets.size(); i++) {
-        println "  Changeset ${i}:"
+        resultlist.add("  Changeset ${i}:")
         def entries = changeLogSets[i].items
         for (int j = 0; j < entries.length; j++) {
             def entry = entries[j]
-            println "    ${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+            resultlist.add("    Commit: ${entry.commitId}")
+            resultlist.add("    by:     ${entry.author}")
+            resultlist.add("    on:     ${new Date(entry.timestamp)}")
+            resultlist.add("    Text:")
+            resultlist.add("    | ${entry.msg}")
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                println "      ${file.editType.name} ${file.path}"
+                resultlist.add("      ${file.editType.name} ${file.path}")
             }
         }
     }
+    return resultlist.join('\n')
 }
 
 
@@ -60,14 +66,15 @@ pipeline {
         echo "cron: ${cron_string}"
         echo "quietperiod: ${quietperiod}"
         script {
-            println env.CHANGE_ID
-            println currentBuild.displayName
+            def change_info = ""
 
-            show_build_change_info(currentBuild)
+            change_info = show_build_change_info(currentBuild)
+            println "- ${currentBuild.displayName}\n${change_info}"
+
             def parent = currentBuild.getPreviousBuild()
             while (parent != null) {
-                println "- ${parent.displayName}, ${parent.result}:"
-                show_build_change_info(parent)
+                change_info = show_build_change_info(parent)
+                println "- ${parent.displayName}, ${parent.result}:\n${change_info}"
                 parent = parent.getPreviousBuild()
             }
         }
