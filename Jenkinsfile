@@ -42,6 +42,13 @@ pipeline {
   }
   agent none
   stages {
+    stage('Do a checkout on master') {
+      steps {
+            node('master') {
+                checkout scm
+            }
+      }
+    }
     stage('First stage') {
       steps {
         echo "Start"
@@ -62,11 +69,6 @@ pipeline {
                 println "- ${parent.displayName}, ${parent.result}:"
                 show_build_change_info(parent)
                 parent = parent.getPreviousBuild()
-            }
-
-            node('master') {
-                checkout scm
-                show_build_change_info(currentBuild)
             }
         }
       }
