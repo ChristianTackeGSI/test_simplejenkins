@@ -54,7 +54,6 @@ pipeline {
         script {
             println env.CHANGE_ID
             println currentBuild.displayName
-            checkout scm
 
             show_build_change_info(currentBuild)
             def parent = currentBuild.getPreviousBuild()
@@ -62,6 +61,11 @@ pipeline {
                 println "- ${parent.displayName}, ${parent.result}:"
                 show_build_change_info(parent)
                 parent = parent.getPreviousBuild()
+            }
+
+            node('master') {
+                checkout scm
+                show_build_change_info(currentBuild)
             }
         }
       }
