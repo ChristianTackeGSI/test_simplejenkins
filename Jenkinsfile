@@ -54,6 +54,8 @@ pipeline {
         script {
             println env.CHANGE_ID
             println currentBuild.displayName
+            checkout scm
+
             show_build_change_info(currentBuild)
             def parent = currentBuild.getPreviousBuild()
             while (parent != null) {
