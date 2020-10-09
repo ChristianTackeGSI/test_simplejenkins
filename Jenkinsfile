@@ -49,11 +49,12 @@ pipeline {
   agent none
   stages {
     stage('Do a checkout on master') {
-      steps {
+        steps {
             node('master') {
                 checkout scm
+                /* deleteDir() */
             }
-      }
+        }
     }
     stage('First stage') {
       steps {
