@@ -48,16 +48,12 @@ pipeline {
   }
   agent none
   stages {
-    stage('Do a checkout on master') {
-        steps {
-            node('master') {
-                checkout scm
-                /* deleteDir() */
-            }
-        }
-    }
-    stage('First stage') {
+    stage('First stage / checkout') {
       steps {
+        node('master') {
+            checkout scm
+            /* deleteDir() */
+        }
         echo "Start"
         echo "BRANCH_NAME: ${BRANCH_NAME}"
         echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
