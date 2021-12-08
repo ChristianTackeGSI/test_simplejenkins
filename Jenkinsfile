@@ -48,9 +48,20 @@ pipeline {
   }
   agent none
   stages {
+    stage('Check Whitelist') {
+      input {
+        message "Should we continue?"
+        ok "Yes, we should."
+        submitter "alice,bob"
+        submitterParameter "whopressed"
+      }
+      steps {
+        echo "who pressed: ${whopressed}"
+      }
+    }
     stage('First stage / checkout') {
       steps {
-        node('master') {
+        node("") {
             checkout scm
             /* deleteDir() */
         }
