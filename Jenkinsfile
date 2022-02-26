@@ -1,7 +1,7 @@
 #!groovy
 
 def show_build_change_info(build) {
-    def changeLogSets = currentBuild.changeSets
+    def changeLogSets = build.changeSets
     def resultlist = []
     if (changeLogSets.size() == 0) {
         resultlist.add("  Empty changeSets?!")
