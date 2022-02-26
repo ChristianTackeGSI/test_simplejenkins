@@ -16,6 +16,7 @@ def show_build_change_info(build) {
             resultlist.add("    on:     ${new Date(entry.timestamp)}")
             resultlist.add("    Text:")
             resultlist.add("    | ${entry.msg}")
+            resultlist.add("    Files:")
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
