@@ -20,7 +20,7 @@ def show_build_change_info(build) {
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                resultlist.add("      ${file.editType.name} ${file.path}")
+                resultlist.add("    - ${file.editType.name} ${file.path}")
             }
         }
     }
